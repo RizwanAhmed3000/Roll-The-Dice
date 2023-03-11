@@ -7,11 +7,14 @@
 body{
     background: linear-gradient(to right, #232526, #414345);
     /* background-color: #23242a; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .mainContainer{
-    width: 900px;
-    height: 600px;
-    margin: 100px auto 0 auto;
+    width: 100%;
     padding: 20px;
     border-radius: 10px;
     background-color: #23242a;
@@ -19,6 +22,56 @@ body{
     display: flex;
     justify-content: space-around;
     position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+.box{
+    width: 920px;
+    height: 620px;
+    /* margin: 100px auto 0 auto; */
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #23242a;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    overflow: hidden;
+    /* z-index: 2; */
+
+}
+.box::before{
+    content: '';
+    position: absolute;
+    width: 900px;
+    height: 600px;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(0deg, transparent, transparent, red, red, red);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: neonLights 6s linear infinite;
+}
+.box::after{
+    content: '';
+    position: absolute;
+    width: 900px;
+    height: 600px;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(0deg, transparent, transparent, aqua, aqua, aqua);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: neonLights 6s linear infinite;
+    animation-delay: -3s;
+}
+
+@keyframes neonLights {
+    0%{
+        transform: rotate(0deg);
+    }100%{
+        transform: rotate(360deg);
+    }
 }
 
 .right, .left{
@@ -63,7 +116,17 @@ button{
     font-weight: bolder;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
+    transition: transform ease-out 250ms;
 }
+button:hover{
+    transform: scale(1.1);
+    transition: background ease-out 250ms, transform ease-out 250ms;
+    box-shadow: 1px 0px 8px 0px #ff2525;
+    background-color: #ff2525;
+}
+
 .hidden{
     visibility: hidden;
 }
+
