@@ -10,41 +10,42 @@ var holdBtn = document.querySelector('.holdBtn');
 var diceImg = document.querySelector('.diceImg');
 var player1 = document.querySelector('.player1');
 var player2 = document.querySelector('.player2');
-var score; var activePlayer;
-
+var player2Name = document.querySelector('.player2Name');
+var player1Name = document.querySelector('.player1Name');
+var activePlayer;
+var currentScore = currentScore1;
+var totalScore = totalScore1
 activePlayer = player1;
-console.log(activePlayer.classList);
 
-//functions
-// player1 = 1;
-// player2 = 2;
-score = [];
-
-// function game(){
-    
-// }
+//fuctions
 
 function rollDice(){
     var randomNumber = Math.round(Math.random() * 5 + 1);
-    console.log(randomNumber)
+    // console.log(randomNumber)
     diceImg.classList.remove('hidden');
     diceImg.src = `assets/${randomNumber}.png`;
     if(randomNumber == 1){
-        currentScore1.textContent = 0;
-        playerActivation();
+        currentScore.textContent = 0;
         nextPlayer();
     } else{
-        currentScore1.textContent = +currentScore1.textContent + randomNumber;
-        // score[0] = +currentScore1.textContent;
-        // console.log(score);
+        currentScore.textContent = +currentScore.textContent + randomNumber;
     }
 }
 
 function holdAction(){
-    totalScore1.textContent = +totalScore1.textContent + (+currentScore1.textContent);
-    currentScore1.textContent = 0;
-    nextPlayer();
-    playerActivation();
+    totalScore.textContent = +totalScore.textContent + (+currentScore.textContent);
+    currentScore.textContent = 0;
+    if(totalScore.textContent >= 100){
+        if(activePlayer == player1){
+            alert(`${player1Name.textContent} Wins`);
+            newGame();
+        }else{
+            alert(`${player2Name.textContent} Wins`);
+            newGame();
+        }
+    }else {
+        nextPlayer();
+    }
 }
 
 function newGame(){
@@ -65,19 +66,20 @@ function nextPlayer(){
     playerActivation();
 }
 
+
 function playerActivation(){
     if(activePlayer == player1){
-        activePlayer = player2;
-        currentScore1 = currentScore1;
-        totalScore1 = totalScore1;        
+        currentScore = currentScore1;
+        totalScore = totalScore1;
     }else if(activePlayer == player2){
-        activePlayer = player1
-        currentScore1 = currentScore2;
-        totalScore1 = totalScore2;        
+        currentScore = currentScore2;
+        totalScore = totalScore2;
     }
 }
 
 //actions
+
+
 rollDiceBtn.addEventListener('click', rollDice);
 holdBtn.addEventListener('click', holdAction);
 newGameBtn.addEventListener('click', newGame);
